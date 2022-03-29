@@ -2,14 +2,14 @@
 
 describe('\"Contact Us\" form testing', () => {
 
-    it('', () => {
+    it('Simple form test', () => {
         cy.visit('/Contact-Us/contactus.html');
-        cy.get('input');
-        cy.get('#form_buttons');
-        cy.get('.feedback-input');
-        cy.get('[type]');
-        cy.get('[name="first_name"]');
-        cy.get('[class="feedback-input"]');
+        cy.get('input[name="first_name"]').type('GOT HERE!');
+        cy.get('input[name="last_name"]').type('GOT HERE!');
+        cy.get('input[name="email"]').type('GOT HERE!');
+        cy.get('[value="SUBMIT"]').click();
+        cy.get('body').should('contain.text', 'Error: all fields are required');
+        cy.get('body').should('contain.text', 'Error: Invalid email address');
     })
 
 })
