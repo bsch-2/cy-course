@@ -8,7 +8,7 @@ describe('Dropdowns, Checkboxes & Radio Buttons check', () => {
         cy.visit('/Dropdown-Checkboxes-RadioButtons/index.html');
     })
 
-    it.only('Dropdown menu section check', () => {
+    it('Dropdown menu section check', () => {
         dropdownsObject.checkDropdownMenuSection();
     })
 

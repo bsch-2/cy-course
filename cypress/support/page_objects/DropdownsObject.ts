@@ -39,18 +39,28 @@ export class DropdownsObject {
         }
     }
 
+    //checkbox section
+
     checkCheckboxSection() {
         this.selectSection(1)
             .then(checkboxes => {
-                this.checkboxSelection();
+                for (let i: number = 0; i <= 3; i++) {
+                    this.checkboxSelection(i, true);
+                }
+                this.checkboxSelection(1, false);
+                this.checkboxSelection(3, false);
             });
     }
 
-    checkboxSelection() {
-        cy.get(this.checkboxLocator).check().should('be.checked');
-        cy.get(this.checkboxLocator).eq(1).uncheck().should('not.be.checked');
-        cy.get(this.checkboxLocator).eq(3).uncheck().should('not.be.checked');
+    checkboxSelection(checkboxRange: number, isChecked: boolean) {
+        if (isChecked) {
+            cy.get(this.checkboxLocator).eq(checkboxRange).check().should('be.checked');
+        } else {
+            cy.get(this.checkboxLocator).eq(checkboxRange).uncheck().should('not.be.checked');
+        }
     }
+
+    // radio button section
 
     checkRadioButtonSection() {
         this.selectSection(2)
@@ -61,6 +71,8 @@ export class DropdownsObject {
     selectSection(index) {
         return cy.get(this.sectionLocator).eq(index);
     }
+
+
 }
 
 export const dropdownsObject = new DropdownsObject();
