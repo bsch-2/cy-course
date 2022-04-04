@@ -16,7 +16,7 @@ describe('Dropdowns, Checkboxes & Radio Buttons check', () => {
         dropdownsObject.checkCheckboxSection();
     })
 
-    it('Radio Button section check', () => {
-        dropdownsObject.checkRadioButtonSection();
+    it.only('Radio Button section check', () => {
+        dropdownsObject.radioButtons();
     })
 })
