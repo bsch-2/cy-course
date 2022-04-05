@@ -16,7 +16,7 @@ export class DatepickerObject {
     }
 
     datePicker() {
-        this.pickDate(50);
+        this.pickDate(500);
     }
 
     selectDatePicker(version?: string) {
