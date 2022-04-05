@@ -3,7 +3,6 @@
 import {autocompleteObject} from '../../support/page_objects/AutocompleteObject';
 
 describe('Autocomplete TextField check', () => {
-    let testVar: string = 'something';
 
     beforeEach('', () => {
         cy.visit('/Autocomplete-TextField/autocomplete-textfield.html');
