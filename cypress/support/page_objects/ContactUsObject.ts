@@ -1,42 +1,45 @@
 /// <reference types="cypress" />
 
 export class ContactUsObject {
-    firstNameLocator = 'input[name="first_name"]';
-    lastNameLocator = 'input[name="last_name"]';
-    emailLocator = 'input[name="email"]';
-    commentLocator = 'textarea[name="message"]';
-    submitButtonLocator = '[type="submit"]';
+    firstNameLocator: string = 'input[name="first_name"]';
+    lastNameLocator: string = 'input[name="last_name"]';
+    emailLocator: string = 'input[name="email"]';
+    commentLocator: string = 'textarea[name="message"]';
+    submitButtonLocator: string = '[type="submit"]';
     resetButtonLocator: string = '[type="reset"]';
+    formButtonLocator: string = '#form_buttons';
+    replyLocator: string = '#contact_reply';
+    confirmationMessage: string = 'Thank You for your Message!';
     errorMessage: string[] = [
         'Error: all fields are required',
         'Error: Invalid email address'
     ]
-    confirmationMessage: string = 'Thank You for your Message!';
 
-    writeFirstName(firstName) {
-        cy.get(this.firstNameLocator).type(firstName);
+    writeFirstName(firstName: string) {
+        return cy.get(this.firstNameLocator).type(firstName);
     };
 
-    writeLastName(lastName) {
-        cy.get(this.lastNameLocator).type(lastName);
+    writeLastName(lastName: string) {
+        return cy.get(this.lastNameLocator).type(lastName);
     };
 
-    writeEmail(email) {
-        cy.get(this.emailLocator).type(email);
+    writeEmail(email: string) {
+        return cy.get(this.emailLocator).type(email);
     };
 
-    writeComment(comment) {
-        cy.get(this.commentLocator).type(comment);
+    writeComment(comment: string) {
+        return cy.get(this.commentLocator).type(comment);
     };
 
     formSubmit() {
-        cy.get('#form_buttons').find(this.submitButtonLocator).click();
+        return cy.get(this.formButtonLocator).find(this.submitButtonLocator).click();
     }
 
     formReset() {
-        cy.get('#form_buttons').find(this.resetButtonLocator).click();
+        return cy.get(this.formButtonLocator).find(this.resetButtonLocator).click();
     }
 
+    // refactor to remove ?:
     fillForm(firstName?: string, lastName?: string, email?: string, comment?: string) {
         if (firstName != undefined) {
             contactUsPage.writeFirstName(firstName);
@@ -52,7 +55,7 @@ export class ContactUsObject {
         }
     }
 
-    checkForm(isEmpty) {
+    checkForm(isEmpty: boolean) {
         if (isEmpty) {
             cy.get(this.firstNameLocator).should('be.empty');
             cy.get(this.lastNameLocator).should('be.empty');
@@ -62,7 +65,7 @@ export class ContactUsObject {
     }
 
     checkFormConfirmationMessage() {
-        cy.get('#contact_reply').should('contain.text', this.confirmationMessage);
+        cy.get(this.replyLocator).should('contain.text', this.confirmationMessage);
     }
 
     validationErrorCheck(isFormIncomplete?: boolean, isEmailInvalid?: boolean) {
