@@ -2,7 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "sourceMap": true
+    "sourceMap": true,
+    "types": [
+      "cypress",
+      "cypress-wait-until"
+    ]
   },
   "exclude": [
     "node_modules"
