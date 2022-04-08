@@ -4,8 +4,7 @@
     "target": "es5",
     "sourceMap": true,
     "types": [
-      "cypress",
-      "cypress-wait-until"
+      "cypress"
     ]
   },
   "exclude": [
