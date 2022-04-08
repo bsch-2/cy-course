@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import {contactUsPage} from '../../support/page_objects/ContactUsObject';
+import {contactUsPage} from '../../support/page_objects/ContactUs';
 
 describe('\"Contact Us\" form testing', () => {
     const correctUserData = {

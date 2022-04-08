@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import {dropdownsObject} from '../../support/page_objects/DropdownsObject';
+import {dropdownsObject} from '../../support/page_objects/Dropdowns';
 
 describe('Dropdowns, Checkboxes & Radio Buttons check', () => {
 

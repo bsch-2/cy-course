@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-export class ContactUsObject {
+export class ContactUs {
     firstNameLocator: string = 'input[name="first_name"]';
     lastNameLocator: string = 'input[name="last_name"]';
     emailLocator: string = 'input[name="email"]';
@@ -78,4 +78,4 @@ export class ContactUsObject {
     }
 }
 
-export const contactUsPage = new ContactUsObject();
+export const contactUsPage = new ContactUs();
