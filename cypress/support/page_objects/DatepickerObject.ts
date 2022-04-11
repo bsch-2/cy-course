@@ -87,6 +87,7 @@ export class DatepickerObject {
                 let text = calendarLabel.text();
 
                 // check if label contains calculated year
+                // @ts-ignore
                 if (!text.includes(String(calculatedYear))) {
                     cy.log('doing backflips')
                     this.selectDatePickerLabel(this.datepickerLevel["days"]);
@@ -99,6 +100,7 @@ export class DatepickerObject {
                     this.checkDateInput(calculatedMonthNumber, calculatedDay, calculatedYear);
 
                     // check if label contains calculated month
+                    // @ts-ignore
                 } else if (!text.includes(String(calculatedMonthWord))) {
                     cy.log('doing squats')
                     this.selectDatePickerLabel(this.datepickerLevel["days"]);

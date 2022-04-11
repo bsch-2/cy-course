@@ -1,135 +1,100 @@
 /// <reference types="cypress" />
 
-interface SectionNames {
-    [key: string]: number;
-}
-
 export class Dropdowns {
-    amountOfRadioButtons: number = 5;
-    sectionName = {
-        Dropdowns: 0,
-        Checkboxes: 1,
-        Radiobuttons: 2,
-    };
-    sectionLocator: string = '[class="col-sm-4 col-lg-4 col-md-4"]';
-    dropdownElementLocator: string[] = [
-        '#dropdowm-menu-1',
-        '#dropdowm-menu-2',
-        '#dropdowm-menu-3',
-    ];
-    dropdownMenuElements: string[][] = [
-        ['JAVA', 'C#', 'Python', 'SQL'],
-        ['Eclipse', 'Maven', 'TestNG', 'JUnit'],
-        ['HTML', 'CSS', 'JavaScript', 'JQuery'],
-    ];
-    checkboxLocator: string = 'input[type="checkbox"]';
+	amountOfRadioButtons: number = 5;
+	sectionLocator: string = '[class="col-sm-4 col-lg-4 col-md-4"]';
+	checkboxLocator: string = 'input[type="checkbox"]';
+	radioButtonLocator: string = '[type="radio"]';
 
-    checkDropdownMenuSection() {
-        // to be changed to iterator
-        this.selectSection(this.sectionName['Dropdowns'])
-            .find(this.dropdownElementLocator[0])
-            .then((dropdown) => {
-                this.dropDownIterator(dropdown, 0);
-            });
-        this.selectSection(this.sectionName['Dropdowns'])
-            .find(this.dropdownElementLocator[1])
-            .then((dropdown) => {
-                this.dropDownIterator(dropdown, 1);
-            });
-        this.selectSection(this.sectionName['Dropdowns'])
-            .find(this.dropdownElementLocator[2])
-            .then((dropdown) => {
-                this.dropDownIterator(dropdown, 2);
-            });
-    }
+	sectionName = {
+		Dropdowns: 0,
+		Checkboxes: 1,
+		RadioButtons: 2,
+	};
 
-    dropDownIterator(dropdown, listItemRange: number) {
-        let index: number = 0;
-        for (
-            index;
-            index < this.dropdownMenuElements[listItemRange].length;
-            index++
-        ) {
-            cy.wrap(dropdown)
-                .select(index)
-                .should(
-                    'contain.text',
-                    this.dropdownMenuElements[listItemRange][index]
-                );
-        }
-    }
+	dropdownList: string[] = ['#dropdowm-menu-1', '#dropdowm-menu-2', '#dropdowm-menu-3'];
 
-    //checkbox section
+	dropdownListElements: string[][] = [
+		['JAVA', 'C#', 'Python', 'SQL'],
+		['Eclipse', 'Maven', 'TestNG', 'JUnit'],
+		['HTML', 'CSS', 'JavaScript', 'JQuery'],
+	];
 
-    checkCheckboxSection() {
-        this.selectSection(1).then((checkboxes) => {
-            for (let i: number = 0; i <= 3; i++) {
-                this.checkboxSelection(i, true);
-            }
-            this.checkboxSelection(1, false);
-            this.checkboxSelection(3, false);
-        });
-    }
+	//dropdown list section
 
-    checkboxSelection(checkboxRange: number, isChecked: boolean) {
-        if (isChecked) {
-            cy.get(this.checkboxLocator)
-                .eq(checkboxRange)
-                .check()
-                .should('be.checked');
-        } else {
-            cy.get(this.checkboxLocator)
-                .eq(checkboxRange)
-                .uncheck()
-                .should('not.be.checked');
-        }
-    }
+	checkEachListLength() {
+		//iterate through each list
+		for (let i: number = 0; i < this.dropdownListElements.length; i++) {
+			//check list length assertion
+			this.selectSection(this.sectionName['Dropdowns'])
+				.find(this.dropdownList[i])
+				.find('option')
+				.should('have.length', this.dropdownListElements[i].length);
+		}
+	}
 
-    // radio button section
+	checkListElements() {
+		//iterate through available list in selected section
+		for (let testedList: number = 0; testedList < 3; testedList++) {
+			this.selectSection(this.sectionName['Dropdowns'])
+				.find(this.dropdownList[testedList])
+				.then((dropdown) => {
+					// iterate through list elements and check, if each list entry is
+					for (let i: number = 0; i < this.dropdownListElements[testedList].length; i++)
+						cy.wrap(dropdown).select(i).should('contain.text', this.dropdownListElements[testedList][i]);
+				});
+		}
+	}
 
-    radioButtons() {
-        // check each radio button and check if others are unchecked at the same time
-        for (
-            let index: number = 0;
-            index < this.amountOfRadioButtons;
-            index++
-        ) {
-            this.clickRadioButton(this.sectionName['Radiobuttons'], index);
-        }
-    }
+	//checkbox section
+	checkCheckboxSection() {
+		this.selectSection(1).then((checkboxes) => {
+			for (let i: number = 0; i <= 3; i++) {
+				this.checkboxSelection(i, true);
+			}
+			this.checkboxSelection(1, false);
+			this.checkboxSelection(3, false);
+		});
+	}
 
-    clickRadioButton(section: number, range: number) {
-        // check chosen radio button & assert if that was done
-        this.selectSection(section)
-            .find('[type="radio"]')
-            .eq(range)
-            .check()
-            .should('be.checked');
-        // confirm that other radio buttons are unchecked after first one was checked
-        this.checkUncheckedRatioButtons(section, range);
-    }
+	checkboxSelection(checkboxRange: number, isChecked: boolean) {
+		if (isChecked) {
+			cy.get(this.checkboxLocator).eq(checkboxRange).check().should('be.checked');
+		} else {
+			cy.get(this.checkboxLocator).eq(checkboxRange).uncheck().should('not.be.checked');
+		}
+	}
 
-    checkUncheckedRatioButtons(section: number, skippedRadioButton: number) {
-        for (
-            let index: number = 0;
-            index < this.amountOfRadioButtons;
-            index++
-        ) {
-            // skip chosen radio button
-            if (skippedRadioButton != index) {
-                this.selectSection(section)
-                    .find('[type="radio"]')
-                    .eq(index)
-                    .should('not.be.checked');
-            }
-        }
-    }
+	// radio button section
 
-    // helper functions
+	radioButtons() {
+		// check each radio button and check if others are unchecked at the same time
+		for (let index: number = 0; index < this.amountOfRadioButtons; index++) {
+			this.clickRadioButton(this.sectionName['RadioButtons'], index);
+		}
+	}
 
-    selectSection(index: number) {
-        return cy.get(this.sectionLocator).eq(index);
-    }
+	clickRadioButton(section: number, range: number) {
+		// check chosen radio button & assert if that was done
+		this.selectSection(section).find(this.radioButtonLocator).eq(range).check().should('be.checked');
+		// confirm that other radio buttons are unchecked after first one was checked
+		this.checkUncheckedRatioButtons(section, range);
+	}
+
+	checkUncheckedRatioButtons(section: number, skippedRadioButton: number) {
+		for (let index: number = 0; index < this.amountOfRadioButtons; index++) {
+			// skip chosen radio button
+			if (skippedRadioButton != index) {
+				this.selectSection(section).find(this.radioButtonLocator).eq(index).should('not.be.checked');
+			}
+		}
+	}
+
+	// helper functions
+
+	selectSection(index: number) {
+		return cy.get(this.sectionLocator).eq(index);
+	}
 }
 
 export const dropdownsObject = new Dropdowns();
