@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 
-export class AutocompleteObject {
-
+export class Autocomplete {
+    submitButtonLocator: string = '#submit-button';
+    foodNameInputLocator: string = '#myInput';
+    autocompleteListLocator: string = '#myInputautocomplete-list';
 
     typeFoodName(text: string) {
         this.foodNameInputField().type(text);
@@ -13,15 +15,15 @@ export class AutocompleteObject {
     }
 
     foodNameInputField() {
-        return cy.get('#myInput');
+        return cy.get(this.foodNameInputLocator);
     }
 
     submitButton() {
-        return cy.get('#submit-button');
+        return cy.get(this.submitButtonLocator);
     }
 
     autocompleteList() {
-        cy.get('#myInputautocomplete-list')
+        cy.get(this.autocompleteListLocator)
             .find('div')
             .eq(1)
             .click();
@@ -29,4 +31,4 @@ export class AutocompleteObject {
 
 }
 
-export const autocompleteObject = new AutocompleteObject();
+export const autocompleteObject = new Autocomplete();
