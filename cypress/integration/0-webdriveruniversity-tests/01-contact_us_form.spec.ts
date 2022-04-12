@@ -1,33 +1,64 @@
 /// <reference types="cypress" />
 
-import {contactUsPage} from '../../support/page_objects/ContactUsObject';
+import {contactUsPage} from '../../support/page_objects/ContactUs';
 
-describe('\"Contact Us\" form testing', () => {
+describe('When on \"Contact Us\" page', () => {
+    const correctUserData = {
+        "FirstName": "John",
+        "LastName": "Connor",
+        "Email": "john.connor@mail.com",
+        "Comment": "Some different comment"
+    };
+    const notCorrectUserData = {
+        "FirstName": "@",
+        "LastName": "!",
+        "Email": "badEmail",
+        "Comment": " "
+    };
+
 
     beforeEach('', () => {
         cy.visit('/Contact-Us/contactus.html');
     })
 
     it('Fill form, reset & check if form is clear', () => {
-        contactUsPage.fillForm('First Name', 'Last Name', 'test.email@mail.com', 'Some different comment');
+        contactUsPage.fillForm(
+            correctUserData.FirstName,
+            correctUserData.LastName,
+            correctUserData.Email,
+            correctUserData.Comment
+        );
         contactUsPage.formReset();
         contactUsPage.checkForm(true);
     })
 
     it('Fill part of form, send & check if error message is correct', () => {
-        contactUsPage.fillForm('First Name', 'Last Name');
+        contactUsPage.fillForm(
+            correctUserData.FirstName,
+            correctUserData.LastName
+        );
         contactUsPage.formSubmit();
         contactUsPage.validationErrorCheck(true);
     })
 
     it('Enter bad email, send & check if error message is correct', () => {
-        contactUsPage.fillForm('First Name', 'Last Name', 'badEmail', 'This is a comment');
+        contactUsPage.fillForm(
+            correctUserData.FirstName,
+            correctUserData.LastName,
+            notCorrectUserData.Email,
+            correctUserData.Comment
+        );
         contactUsPage.formSubmit();
         contactUsPage.validationErrorCheck(false, true);
     })
 
     it('Fill form, send & check if message is correct', () => {
-        contactUsPage.fillForm('First Name', 'Last Name', 'test.email@mail.com', 'Some different comment');
+        contactUsPage.fillForm(
+            correctUserData.FirstName,
+            correctUserData.LastName,
+            correctUserData.Email,
+            correctUserData.Comment
+        );
         contactUsPage.formSubmit();
         contactUsPage.checkFormConfirmationMessage();
     })

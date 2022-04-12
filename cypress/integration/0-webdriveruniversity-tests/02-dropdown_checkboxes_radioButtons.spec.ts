@@ -1,22 +1,30 @@
 /// <reference types="cypress" />
 
-import {dropdownsObject} from '../../support/page_objects/DropdownsObject';
+import {dropdownsObject} from '../../support/page_objects/Dropdowns';
 
-describe('Dropdowns, Checkboxes & Radio Buttons check', () => {
+describe('When in Dropdown Menu(s) section', () => {
 
     beforeEach('', () => {
         cy.visit('/Dropdown-Checkboxes-RadioButtons/index.html');
     })
 
-    it('Dropdown menu section check', () => {
-        dropdownsObject.checkDropdownMenuSection();
+    it('Each list should have correct length', () => {
+        dropdownsObject.checkEachListLength();
     })
 
-    it('Checkbox section check', () => {
+    it('Each list should have correct elements', () => {
+        dropdownsObject.checkListElements();
+    })
+})
+
+describe('When in Checkboxe(s) section', () => {
+    it('When one checkbox is clicked, it should be checked', () => {
         dropdownsObject.checkCheckboxSection();
     })
+})
 
-    it.only('Radio Button section check', () => {
+describe('When in Radio Button(s) section', () => {
+    it('When radio button is clicked, it becomes checked and other radio buttons are unchecked', () => {
         dropdownsObject.radioButtons();
     })
 })

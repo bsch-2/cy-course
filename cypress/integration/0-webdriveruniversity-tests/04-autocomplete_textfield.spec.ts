@@ -1,15 +1,16 @@
 /// <reference types="cypress" />
 
-import {autocompleteObject} from '../../support/page_objects/AutocompleteObject';
+import {autocompleteObject} from '../../support/page_objects/Autocomplete';
 
-describe('Autocomplete TextField check', () => {
+describe('When on Autocomplete TextField page', () => {
+    const foodName = 'Chi';
 
-    beforeEach('', () => {
+    beforeEach('Visit autocomplete page', () => {
         cy.visit('/Autocomplete-TextField/autocomplete-textfield.html');
     })
 
-    it('Autocomplete check', () => {
-        autocompleteObject.typeFoodName('Chi');
+    it('Type in part of food name, and pick food from autocomplete list', () => {
+        autocompleteObject.typeFoodName(foodName);
         autocompleteObject.autocompleteList();
         autocompleteObject.submitButton().click();
     })
