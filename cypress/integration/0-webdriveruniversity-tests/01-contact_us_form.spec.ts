@@ -2,7 +2,7 @@
 
 import {contactUsPage} from '../../support/page_objects/ContactUs';
 
-describe('\"Contact Us\" form testing', () => {
+describe('When on \"Contact Us\" page', () => {
     const correctUserData = {
         "FirstName": "John",
         "LastName": "Connor",

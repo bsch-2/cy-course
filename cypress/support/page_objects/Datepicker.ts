@@ -39,10 +39,18 @@ export class Datepicker {
 	}
 
 	checkDateInput(calculatedMonthNumber, calculatedDay, calculatedYear) {
+		let dayForInputCheck = "0";
+		let monthForInputCheck = "0";
+		if (calculatedDay <= 9) {
+			dayForInputCheck = "0" + calculatedDay;
+		}
+		if (calculatedMonthNumber <= 9) {
+			monthForInputCheck = "0" + calculatedMonthNumber;
+		}
 		return cy
 			.get(this.datePickerInputFieldSelector)
 			.invoke('prop', 'value')
-			.should('contain', `${calculatedMonthNumber}-${calculatedDay}-${calculatedYear}`);
+			.should('contain', `${monthForInputCheck}-${dayForInputCheck}-${calculatedYear}`);
 	}
 
 	// todo - finish refactor
