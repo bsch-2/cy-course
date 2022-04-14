@@ -2,14 +2,20 @@
 
 import {automationTestStore} from "../../support/page_objects/AutomationTestStore";
 
-describe('Add T-shirt and cosmetic product', () => {
+describe('When on Automation Test Store', () => {
 
     beforeEach(() => {
         automationTestStore.pageLoadBootstrap();
     })
 
-    it('Add T-shirt', () => {
-        automationTestStore.addTshirt();
+    it('Add T-shirt to cart and skincare product to cart', () => {
+        // automationTestStore.addTshirt();
+        automationTestStore.addSkincareProduct();
+        automationTestStore.checkOutProduct();
     })
+
+    // it.skip('Add skincare product to cart', () => {
+    //
+    // })
 
 })
