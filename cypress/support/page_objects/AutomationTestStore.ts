@@ -9,7 +9,8 @@ export class AutomationTestStore {
     menuBarLocator: string = '#categorymenu';
     priceTagLocator: string = '[class="pricetag jumbotron"]';
     productCartLocator: string = '.productcart';
-    tshirtSizeMenuLocator: string = '#option352';
+    tshirtSizeMenuLocator: string = '#option353';
+    tshirtSizeMenuItemLocator: number = 5;
     addToCartButtonLocator: string = '.productpagecart';
     shoppingCartItemCountLocator: string = '[class="label label-orange font14"]';
 
@@ -102,7 +103,7 @@ export class AutomationTestStore {
             .click();
         this.addProductToCart(1);
         cy.get(this.tshirtSizeMenuLocator)
-            .select(2);
+            .select(this.tshirtSizeMenuItemLocator);
         cy.get(this.addToCartButtonLocator)
             .click();
         this.checkNumberOfItemsInCart(1);
@@ -111,7 +112,7 @@ export class AutomationTestStore {
     addSkincareProduct(){
         this.searchForProduct(this.searchPhrase);
         this.addProductToCart(3);
-        this.checkNumberOfItemsInCart(1);
+        this.checkNumberOfItemsInCart(2);
     }
 
     checkOutProduct(){
@@ -131,6 +132,7 @@ export class AutomationTestStore {
 
     validateContactForm(){
         // todo - change to iterator
+
         this.getContactFormInputField(this.contactFormInputFields['firstName'], false).type(this.contactFormInputData.valid["firstName"]);
         this.getContactFormInputField(this.contactFormInputFields['lastName'], false).type(this.contactFormInputData.valid["lastName"]);
         this.getContactFormInputField(this.contactFormInputFields['email'], false).type(this.contactFormInputData.valid["email"]);
@@ -147,10 +149,7 @@ export class AutomationTestStore {
         cy.get(this.continueButtonLocator)
             .contains('Continue')
             .click();
-        // cy.get(this.mandatoryIndicatorLocator)
-        //     .parents('[class="form-group "]')
-        //     .find('.help-block')
-        //     .should('be.empty')
+
     }
 
     // helper methods

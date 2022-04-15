@@ -9,13 +9,9 @@ describe('When on Automation Test Store', () => {
     })
 
     it('Add T-shirt to cart and skincare product to cart', () => {
-        // automationTestStore.addTshirt();
+        automationTestStore.addTshirt();
         automationTestStore.addSkincareProduct();
         automationTestStore.checkOutProduct();
     })
-
-    // it.skip('Add skincare product to cart', () => {
-    //
-    // })
 
 })
