@@ -33,15 +33,14 @@ export class Dropdowns {
 		}
 	}
 
+	// simple checklist iterator
 	checkListElements() {
-		//iterate through available list in selected section
-		for (let testedList: number = 0; testedList < 3; testedList++) {
+		for (let testedList: number = 0; testedList < this.dropdownListElements.length; testedList++) {
 			this.selectSection(this.sectionName['Dropdowns'])
 				.find(this.dropdownList[testedList])
-				.then((dropdown) => {
-					// iterate through list elements and check, if each list entry is
-					for (let i: number = 0; i < this.dropdownListElements[testedList].length; i++)
-						cy.wrap(dropdown).select(i).should('contain.text', this.dropdownListElements[testedList][i]);
+				.find('option')
+				.each(($el, i, $list) => {
+					cy.wrap($el).should('have.text', this.dropdownListElements[testedList][i]);
 				});
 		}
 	}
