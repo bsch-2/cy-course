@@ -9,8 +9,8 @@ export class AutomationTestStore {
     menuBarLocator: string = '#categorymenu';
     priceTagLocator: string = '[class="pricetag jumbotron"]';
     productCartLocator: string = '.productcart';
-    tshirtSizeMenuLocator: string = '#option353';
-    tshirtSizeMenuItemLocator: number = 5;
+    tshirtSizeMenuLocator: string = '#option351';
+    tshirtSizeMenuItemLocator: number = 1;
     addToCartButtonLocator: string = '.productpagecart';
     shoppingCartItemCountLocator: string = '[class="label label-orange font14"]';
 
@@ -165,11 +165,11 @@ export class AutomationTestStore {
             .click()
     }
 
-    addProductToCart(index: number) {
+    addProductToCart(itemFromList: number) {
         cy.get(this.priceTagLocator)
             .find(this.productCartLocator)
             .not('.nostock')
-            .eq(index)
+            .eq(itemFromList)
             .click();
     }
 
