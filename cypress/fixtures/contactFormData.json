@@ -1,0 +1,16 @@
+{
+  "valid" : {
+    "firstName" : "John",
+    "lastName": "Connor",
+    "email": "john.connor@mail.com",
+    "telephone": "500300200",
+    "fax": "500300200",
+    "company": "Skynet",
+    "address_1": "Somewhere",
+    "address_2": "Over the Rainbow",
+    "city": "Neotokio 3",
+    "zone_id": "Aberdeen",
+    "postcode": "00000",
+    "country_id": "Togo"
+  }
+}
